@@ -25,6 +25,10 @@ app.get('/', (req, res) => {
   console.log(users.results)
 })
 
+app.post('/', (req, res) => {
+  console.log(req.body)
+})
+
 // listening
 app.listen(port, () => {
   console.log(`App is running on http://localhost:${port}.`)
