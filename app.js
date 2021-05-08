@@ -1,6 +1,6 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
-const handlebars = require('handlebars-helpers')
+const hbshelpers = require('handlebars-helpers')
 const multihelpers = hbshelpers()
 
 const app = express()
@@ -19,7 +19,7 @@ app.use(express.static('public'))
 
 // home page
 app.get('/', (req, res) => {
-  console.log('Run App.js')
+  res.render('index')
 })
 
 // listening
