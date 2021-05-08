@@ -3,6 +3,8 @@ const exphbs = require('express-handlebars')
 const hbshelpers = require('handlebars-helpers')
 const multihelpers = hbshelpers()
 
+const users = require('./users.json')
+
 const app = express()
 const port = 3000
 
@@ -20,6 +22,7 @@ app.use(express.static('public'))
 // home page
 app.get('/', (req, res) => {
   res.render('index')
+  console.log(users.results)
 })
 
 // listening
