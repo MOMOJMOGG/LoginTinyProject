@@ -4,6 +4,7 @@ const hbshelpers = require('handlebars-helpers')
 const multihelpers = hbshelpers()
 
 const users = require('./users.json')
+const checkUser = require('./check_user')
 
 const app = express()
 const port = 3000
@@ -22,11 +23,17 @@ app.use(express.static('public'))
 // home page
 app.get('/', (req, res) => {
   res.render('index')
-  console.log(users.results)
 })
 
 app.post('/', (req, res) => {
-  console.log(req.body)
+  const result = checkUser(users.results, req.body)
+  console.log(result)
+  if (result === true) {
+    res.render('index', { isInvalidUser: result })
+  } else {
+    console.log(result)
+    res.render('loginsucceed', { user: result })
+  }
 })
 
 // listening

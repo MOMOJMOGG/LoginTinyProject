@@ -6,12 +6,19 @@
 
         <form action="/" method="POST">
           <div class="mb-2">
-            <input type="email" class="form-control" id="account-email" name="userEmail" placeholder="Email">
+            <input type="email" class="form-control" id="account-email" name="userEmail" placeholder="Email" required>
           </div>
           <div class="mb-5">
-            <input type="password" class="form-control" id="account-password" name="userPassword"
-              placeholder="Password">
+            <input type="password" class="form-control" id="account-password" name="userPassword" placeholder="Password"
+              required>
           </div>
+
+          {{#if isInvalidUser}}
+          <div class="alert alert-info" role="alert">
+            <span class="mr-2">Unknown User</span> <code>Please Sign In Again</code>
+          </div>
+          {{/if}}
+
           <button type="submit" class="btn btn-primary">
             <h4>Sign In</h4>
           </button>
