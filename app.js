@@ -1,6 +1,7 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const hbshelpers = require('handlebars-helpers')
+const cookieParser = require('cookie-parser')
 const multihelpers = hbshelpers()
 
 const users = require('./users.json')
@@ -13,6 +14,8 @@ app.use(express.urlencoded({
   extended: true
 }));
 
+app.use(cookieParser())
+
 // set template engine
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs', helpers: multihelpers }))
 app.set('view engine', 'hbs')
@@ -22,18 +25,26 @@ app.use(express.static('public'))
 
 // home page
 app.get('/', (req, res) => {
-  res.render('index')
+  if (req.cookies.username) {
+    res.render('loginsucceed', { user: req.cookies.username })
+  } else {
+    res.render('index')
+  }
 })
 
 app.post('/', (req, res) => {
   const result = checkUser(users.results, req.body)
-  console.log(result)
   if (result === true) {
     res.render('index', { isInvalidUser: result })
   } else {
-    console.log(result)
+    res.cookie('username', result)
     res.render('loginsucceed', { user: result })
   }
+})
+
+app.post('/logout', (req, res) => {
+  res.clearCookie('username')
+  res.redirect('/')
 })
 
 // listening

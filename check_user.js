@@ -3,7 +3,7 @@ function checkUser(userList, target) {
     return item.email === target.userEmail &
       item.password === target.userPassword
   })
-  console.log(checkResult)
+
   if (checkResult.length === 0) {
     return true
   } else {
